@@ -16,10 +16,10 @@
 #               effect sizes (Cliff's Delta) of significant pairwise comparisons are plotted.
 #
 # Authors:      Plas
-# Date:         August 2024
+# Date:         Jan 2025
 # Version:      1.0
-# R.version:    4.2.2 (2022-10-31)
-# Rstudio:      2023.12.1+402
+# R.version:    4.4.0 (2024-04-24)
+# Rstudio:      2024.12.0+467
 #
 ## ---------------------------------------------------------------------------------------------- ##
 
@@ -27,10 +27,6 @@
 # ------------------------------------------------------------------------------------------------ #
 #                                      Settings & Dependencies
 # ------------------------------------------------------------------------------------------------ #
-
-# numbers of external volumes
-home <- "home-4"
-heronderzoek <- "heronderzoek-5"
 
 # Define path of the Rproject to get and save files
 save_loc = paste("/Users/aplas2/surfdrive - Plas-2, A. (Xandra)@surfdrive.surf.nl/Documents/PhD/p_PRISMO/")
@@ -74,6 +70,10 @@ df_total <- read_csv(paste(save_loc, "a_PRISMO_overall/Data/df_total_A.csv", sep
 table(df_total$outcome)
 prop.table(table(df_total$outcome)) * 100
 
+# use specific sex
+df_total <- df_total %>%
+  filter(gender == 1)
+
 # rename outcome column and remove demographics
 df_total <- df_total %>%
   dplyr::rename(trajectory = outcome) %>%
@@ -85,7 +85,7 @@ df_total$trajectory <- as.factor(df_total$trajectory)
 
 
 # get variable names instead of R column names for readability in paper
-df_varNames <- read_csv(paste(save_loc, "c_Trajectories_Depression/Data/variableName_vs_RcodeName.csv", sep = ""), show_col_types = FALSE)
+df_varNames <- read_excel(paste(save_loc, "c_Trajectories_Depression/Data/variableName_vs_RcodeName.xlsx", sep = ""))
 
 
 
